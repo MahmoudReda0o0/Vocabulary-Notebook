@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_application_1/controllers/read_data_cubit/read_data_cubit_state.dart';
 
 class ReadDataCubit extends Cubit<ReadDataCubitStates> {
-  static get(context) => BlocProvider.of(context);
+  static ReadDataCubit get(context) => BlocProvider.of(context);
   ReadDataCubit() : super(ReadDataCubitInitialState());
 
   final Box _box = Hive.box(HiveConstants.wordBox);
@@ -16,14 +16,17 @@ class ReadDataCubit extends Cubit<ReadDataCubitStates> {
 
   void updateLanguageFilter(LanguageFilter languageFilter) {
     this.languageFilter = languageFilter;
+    getWords();
   }
 
   void updateSortedBy(SortedBy sortedBy) {
     this.sortedBy = sortedBy;
+    getWords();
   }
 
   void updateSortingType(Sortingtype sortingtype) {
     this.sortingtype = sortingtype;
+    getWords();
   }
 
   void getWords() {
@@ -34,6 +37,7 @@ class ReadDataCubit extends Cubit<ReadDataCubitStates> {
               .cast<WordModel>();
       _removeUnwantedWords(wordToReturn);
       _applySorting(wordToReturn);
+
       emit(ReadDataCubitSuccessState(word: wordToReturn));
     } catch (e) {
       languageFilter = LanguageFilter.arabit;

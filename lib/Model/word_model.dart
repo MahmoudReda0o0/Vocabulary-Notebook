@@ -1,8 +1,8 @@
 class WordModel {
-  final indexAtDataBase;
-  final text;
-  final isArabic;
-  final colorCode;
+  final int indexAtDataBase;
+  final String text;
+  final bool isArabic;
+  final int colorCode;
   final List<String> arabicWord;
   final List<String> arabicExample;
   final List<String> englishWord;
@@ -32,28 +32,28 @@ class WordModel {
     );
   }
 
-  WordModel addWord(String word, bool isArabicWord) {
-    List<String> newWord = _initializeWord(isArabicWord);
-    newWord.add(word);
-    return _wordModelAfterCheckNewWord(isArabicWord, newWord);
+  WordModel addSimilarWord(String text, bool isArabic) {
+    List<String> newWord = _initializeWord(isArabic);
+    newWord.add(text);
+    return _wordModelAfterCheckNewWord(isArabic, newWord);
   }
 
-  WordModel deleteWord(int indexAtDataBase, bool isArabicWord) {
-    List<String> newWord = _initializeWord(isArabicWord);
+  WordModel deleteSimilarWord(int indexAtDataBase, bool isArabic) {
+    List<String> newWord = _initializeWord(isArabic);
     newWord.removeAt(indexAtDataBase);
-    return _wordModelAfterCheckNewWord(isArabicWord, newWord);
+    return _wordModelAfterCheckNewWord(isArabic, newWord);
   }
 
-  WordModel addExample(String example, bool isArabicExample) {
+  WordModel addSimilarExample(String example, bool isArabicExample) {
     List<String> newExample = _initializeExample(isArabicExample);
     newExample.add(example);
     return _wordModelAfterCheckNewExample(newExample, isArabicExample);
   }
 
-  WordModel deleteExample(int indexAtDataBase, bool isArabicExample) {
-    List<String> newExample = _initializeExample(isArabicExample);
+  WordModel deleteExample(int indexAtDataBase, bool isArabic) {
+    List<String> newExample = _initializeExample(isArabic);
     newExample.removeAt(indexAtDataBase);
-    return _wordModelAfterCheckNewExample(newExample, isArabicExample);
+    return _wordModelAfterCheckNewExample(newExample, isArabic);
   }
 
   List<String> _initializeWord(bool isArabicWord) {
